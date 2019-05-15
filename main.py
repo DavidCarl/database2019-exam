@@ -1,14 +1,28 @@
-import csv
+import filemanager
+import re
+from console_progressbar import ProgressBar
 
 
-with open('correct.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter='\t')
-    line_count = 0
-    for row in csv_reader:
-        if line_count == 0:
-            print(f'Column names are {", ".join(row)}')
-            line_count += 1
-        else:
-            print(f'\tCountry_Code {row[8]} contains city called {row[1]}, with a population of {row[14]} people.')
-            line_count += 1
-    print(f'Processed {line_count} lines.')
+def go_through_books():
+    fileNames = filemanager.get_files()
+    counter = 0
+    fileCounter = 0
+    print('Searching through the books!')
+    pb = ProgressBar(total=len(fileNames),prefix='Here', suffix='Now', decimals=3, length=150, fill='X', zfill='-')
+    for each in fileNames:
+        fileCounter += 1
+        for line in filemanager.load_book(each):
+            if 'The Project Gutenberg eBook' in line:
+                counter += 1
+        pb.print_progress_bar(fileCounter)
+    print('File Counter', fileCounter)
+    print('Contains counter', counter)
+
+def get_author():
+    pass
+
+def line_contain_words(line, word):
+    pass
+
+# go_through_books()
+filemanager.load_countries()
