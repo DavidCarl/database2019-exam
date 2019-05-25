@@ -28,7 +28,7 @@ def load_countries():
             if row[8] not in countries and lineNumber != 0:
                 # print(f'Unique country: {row[8]}')
                 countries[row[8]] = {'cities': []}
-            elif lineNumber != 0:
+            elif lineNumber != 0 and row[2] is not "":
                 data = countries[row[8]]
                 data['cities'].append(row[2])
             lineNumber += 1
