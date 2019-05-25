@@ -56,7 +56,7 @@ def all_cities_in_books(cities, title):
         return result
 
 # Question 3
-def books_on_author(author)
+def books_on_author(author):
     pass
     # db = connect()
     # result = None
