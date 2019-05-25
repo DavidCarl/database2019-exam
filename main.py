@@ -3,6 +3,8 @@ import re
 from console_progressbar import ProgressBar
 
 
+countries = filemanager.load_file('countries_city.json')
+
 def go_through_books():
     fileNames = filemanager.get_files()
     counter = 0
