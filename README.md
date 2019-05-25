@@ -47,6 +47,11 @@ We made this command to fix it.
 ```
 sed '1igeonameid\tname\tasciiname\talternatenames\tlatitude\tlongitude\tfeature_class\tfeature_code\tcountry_code\tcc2\tadmin1\tadmin2\tadmin3\tadmin4\tpopulation\televation\tdem\ttimezone\tmodification' cities5000.txt > correct.csv
 ```
+### Prerequisites
+You will need a folder called unzipped stored in root of the project. This folder is supposed to hold the files you want to use. We used [these](dcarl.me/archive.tar), and then untarred them and unzipped the zipped files into the folder called unzipped.
+
+Other than that you would also need to change the configuration in the configs folder. Here we have a MongoDB config and a MySQL config.
+
 ### How To Run
 
 \#Todo: We have nothing note worthy to run yet!
