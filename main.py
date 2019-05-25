@@ -31,7 +31,8 @@ def failed_books():
     sql_db.insert_book('12hgp10a.txt', 'Book Title Here', 'Author here', content)
     sql_db.save_failed_files()
 
-sql_db.find_books_on_city('London')
+for each in sql_db.find_books_on_city('London'):
+    print(each)
 
 # go_through_books()
 # filemanager.load_countries()
