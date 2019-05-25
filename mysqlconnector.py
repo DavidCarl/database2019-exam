@@ -12,12 +12,12 @@ def connect():
                         passwd=mysql_config['password'],
                         db=mysql_config['database'])
 
-def insert_book(title, author, content):
+def insert_book(fileName, title, author, content):
     db = connect()
     try:
         with db.cursor() as cursor:
-            sql = "INSERT INTO `books` (`title`, `author`, `content`) VALUES (%s, %s, %s)"
-            cursor.execute(sql, (title, author, content))
+            sql = "INSERT INTO `books` (`fileName`, `title`, `author`, `content`) VALUES (%s, %s, %s, %s)"
+            cursor.execute(sql, (fileName, title, author, content))
         db.commit()
     finally:
         db.close()

@@ -6,6 +6,7 @@ USE exam2019;
 
 CREATE TABLE books (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  fileName varchar(255) NOT NULL,
   title varchar(255) NOT NULL,
   author varchar(255),
   content LONGTEXT NOT NULL

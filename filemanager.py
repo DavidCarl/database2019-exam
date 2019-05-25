@@ -11,13 +11,18 @@ def get_files():
 
 def load_book(path):
     with open('unzipped/' + path, 'r', encoding='utf-8', errors='replace') as f:
-        line = f.readline()
-        while line:
-            try:
-                yield line.strip()
-            except UnicodeDecodeError:
-                print('UnicodeDecodeError: DAFUQ!')
-            line = f.readline()
+        # line = f.readline()
+        return f.read()
+
+# def load_book(path):
+#     with open('unzipped/' + path, 'r', encoding='utf-8', errors='replace') as f:
+#         line = f.readline()
+#         while line:
+#             try:
+#                 yield line.strip()
+#             except UnicodeDecodeError:
+#                 print('UnicodeDecodeError: DAFUQ!')
+#             line = f.readline()
 
 def load_countries():
     countries = {}
