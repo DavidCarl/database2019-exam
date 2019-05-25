@@ -18,6 +18,7 @@ def go_through_books():
         sql_db.insert_book(each, 'Book Title Here', 'Author here', content)
         pb.print_progress_bar(fileCounter)
     print('File Counter', fileCounter)
+    sql_db.save_failed_files()
 
 def get_author():
     pass
@@ -25,7 +26,15 @@ def get_author():
 def line_contain_words(line, word):
     pass
 
-go_through_books()
+def failed_books():
+    content = filemanager.load_book('12hgp10a.txt')
+    sql_db.insert_book('12hgp10a.txt', 'Book Title Here', 'Author here', content)
+    sql_db.save_failed_files()
+
+sql_db.find_books_on_city('London')
+
+# go_through_books()
 # filemanager.load_countries()
 
 # sql_db.insert_book('test', 'David Carl', 'CykaBlyat')
+# failed_books()
