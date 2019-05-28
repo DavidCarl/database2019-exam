@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DB Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Database project</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_city') }}">Search by city</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_title') }}">Search by title</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('search_author') }}">Search by author</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('search_location') }}">Search by location</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <br />
+        <div class="row" name="search-row">
+            <form class="form-inline col-md-10">
+                <!-- COMPLETE FORM LATER -->
+                <div class="form-group my-sm-0">
+                    <input class="form-control form-control-lg" type="text" placeholder="Author name"
+                        id="inputLarge">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg my-2">Search</button>
+                <div class="form-check my-2 my-sm-0">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="db-selector" id="db-selector1"
+                            value="mysql" checked="">
+                        MySQL
+                    </label>
+                </div>
+                <div class="form-check my-2 my-sm-0">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="db-selector" id="db-selector2"
+                            value="mongo">
+                        Mongo DB
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="row" name="result-row">
+            <div class="col-md-10">
+                <h1>lists all books written by that author and plots all cities mentioned in any of the books onto a map</h1>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

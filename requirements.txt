@@ -3,3 +3,4 @@ Flask-RESTful
 console-progressbar
 pymongo
 pymysql
+flask-googlemaps
