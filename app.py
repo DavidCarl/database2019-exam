@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, jsonify,render_template
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 app = Flask(__name__)
@@ -33,6 +33,9 @@ def search_location():
     )
     return render_template("search_location.html", mymap=mymap)
 
+
+def get_books():
+    book_list = [{"Title": "A Game of Thrones"}]
 
 
 if __name__ == "__main__":
