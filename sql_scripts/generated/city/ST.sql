@@ -1,1 +1,0 @@
-INSERT INTO city (`name`, `geolocation`) VALUES ('Santo Antonio', ST_GeomFromText("POINT (1.63943 7.41951)"));
