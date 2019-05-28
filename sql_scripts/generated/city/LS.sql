@@ -1,0 +1,11 @@
+INSERT INTO city (`name`, `geolocation`) VALUES ('Quthing', ST_GeomFromText("POINT (-30.40001 27.70027)")),
+('Qacha s Nek', ST_GeomFromText("POINT (-30.11537 28.68936)")),
+('Nako', ST_GeomFromText("POINT (-29.61667 27.76667)")),
+('Mokhotlong', ST_GeomFromText("POINT (-29.28939 29.06751)")),
+('Mohale s Hoek', ST_GeomFromText("POINT (-30.15137 27.47691)")),
+('Maseru', ST_GeomFromText("POINT (-29.31667 27.48333)")),
+('Maputsoe', ST_GeomFromText("POINT (-28.8866 27.89915)")),
+('Mafeteng', ST_GeomFromText("POINT (-29.82299 27.23744)")),
+('Leribe', ST_GeomFromText("POINT (-28.87185 28.04501)")),
+('Butha-Buthe', ST_GeomFromText("POINT (-28.76659 28.24937)")),
+('Thaba-Tseka', ST_GeomFromText("POINT (-29.52204 28.6084)"));

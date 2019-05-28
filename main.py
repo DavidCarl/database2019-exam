@@ -1,24 +1,24 @@
 import filemanager
 import re
 import mysqlconnector as sql_db
+import subprocess
+import sql_generator
 from console_progressbar import ProgressBar
 
 
-# countries = filemanager.load_file('countries_city.json')
+countries = filemanager.load_file('countries_city.json')
 
 def go_through_books():
     fileNames = filemanager.get_files()
     fileCounter = 0
-    # print('Searching through the books!')
     print('')
     pb = ProgressBar(total=len(fileNames),prefix='Inserting books to MySQL!', suffix='', decimals=3, length=100, fill='█', zfill='░') # ▒
     for each in fileNames:
         fileCounter += 1
         content = filemanager.load_book(each)
-        sql_db.insert_book(each, 'Book Title Here', 'Author here', content)
+        sql_db.insert_book(each, 'Book Title Here', content)
         pb.print_progress_bar(fileCounter)
     print('File Counter', fileCounter)
-    sql_db.save_failed_files()
 
 def get_author():
     pass
@@ -26,16 +26,53 @@ def get_author():
 def line_contain_words(line, word):
     pass
 
-def failed_books():
-    content = filemanager.load_book('12hgp10a.txt')
-    sql_db.insert_book('12hgp10a.txt', 'Book Title Here', 'Author here', content)
-    sql_db.save_failed_files()
+def city_mention():
+    res = sql_db.get_all_id_and_filename()
+    fileNameID = {}
+    for each in res:
+        fileNameID[each[1]] = each[0]
+    files = filemanager.city_mentions()
+    for city in files:
+        city_id = sql_db.get_city_id(city[:-5])
+        if city_id is not None:
+            sql_generator.start_file('city_mentions', 'mentions/' + city[:-5], '')
+            # print(city[:-5])
+            # print(city_id[0])
+            for line in filemanager.load_mentions(city):
+                if line[-4:] == '.txt':
+                    try:
+                        sql_generator.city_mentions(city_id[0], fileNameID[line.split('/')[-1:][0]], 'mentions/' + city[:-5])
+                    except:
+                        print(f'I crashed on {line.split("/")[-1:][0]}')
+    sqlfiles = filemanager.city_mentions_sql()
+    for each in sqlfiles:
+        lineList = None
+        certainLine = None
+        with open('sql_scripts/generated/mentions/' + each, 'r') as sql_file:
+            lineList = sql_file.readlines()
+            certainLine = len(lineList) - 1
+        lineList[certainLine] = lineList[certainLine].replace(',', ';')
+        with open('sql_scripts/generated/mentions/' + each, 'w') as sql_file:
+            for item in lineList:
+                sql_file.write("%s" % item)
 
-for each in sql_db.find_books_on_city('London'):
-    print(each)
+def add_city():
+    size = 0
+    loop = 1
+    for country in countries:
+        sql_generator.start_file('city', 'city/' + country, '(`name`, `geolocation`) ')
+        size = len(countries[country]['cities'])
+        loop = 1
+        for obj in countries[country]['cities']:
+            sql_generator.city(obj["city"], obj["lat"], obj["long"], 'city/' + country)
+            if obj["city"] == 'Adrogue':
+                print(str(loop) + ' ' + str(size))
+            if loop == size:
+                sql_generator.end_file('city/' + country, 'end')
+            else:
+                sql_generator.end_file('city/' + country, 'continue')
+            loop += 1
 
-# go_through_books()
+city_mention()
+# add_city()
 # filemanager.load_countries()
-
-# sql_db.insert_book('test', 'David Carl', 'CykaBlyat')
-# failed_books()

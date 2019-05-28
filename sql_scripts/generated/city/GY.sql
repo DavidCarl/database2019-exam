@@ -1,0 +1,11 @@
+INSERT INTO city (`name`, `geolocation`) VALUES ('Skeldon', ST_GeomFromText("POINT (5.88333 -57.13333)")),
+('Rosignol', ST_GeomFromText("POINT (6.27095 -57.53697)")),
+('New Amsterdam', ST_GeomFromText("POINT (6.24793 -57.5171)")),
+('Mahdia', ST_GeomFromText("POINT (5.26667 -59.15)")),
+('Mabaruma', ST_GeomFromText("POINT (8.2 -59.78333)")),
+('Linden', ST_GeomFromText("POINT (6.00809 -58.30714)")),
+('Lethem', ST_GeomFromText("POINT (3.38333 -59.8)")),
+('Georgetown', ST_GeomFromText("POINT (6.80448 -58.15527)")),
+('Bartica', ST_GeomFromText("POINT (6.40799 -58.62192)")),
+('Anna Regina', ST_GeomFromText("POINT (7.26439 -58.50769)")),
+('Fort Wellington', ST_GeomFromText("POINT (6.39087 -57.60381)"));

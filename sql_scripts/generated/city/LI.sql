@@ -1,0 +1,10 @@
+INSERT INTO city (`name`, `geolocation`) VALUES ('Triesenberg', ST_GeomFromText("POINT (47.11815 9.54197)")),
+('Triesen', ST_GeomFromText("POINT (47.10752 9.52815)")),
+('Schellenberg', ST_GeomFromText("POINT (47.23123 9.54678)")),
+('Schaan', ST_GeomFromText("POINT (47.16498 9.50867)")),
+('Ruggell', ST_GeomFromText("POINT (47.23799 9.5254)")),
+('Planken', ST_GeomFromText("POINT (47.18516 9.54437)")),
+('Mauren', ST_GeomFromText("POINT (47.21805 9.5442)")),
+('Gamprin', ST_GeomFromText("POINT (47.22038 9.50935)")),
+('Eschen', ST_GeomFromText("POINT (47.21071 9.52223)")),
+('Balzers', ST_GeomFromText("POINT (47.06665 9.50251)"));

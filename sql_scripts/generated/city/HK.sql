@@ -1,0 +1,13 @@
+INSERT INTO city (`name`, `geolocation`) VALUES ('Yung Shue Wan', ST_GeomFromText("POINT (22.22623 114.11241)")),
+('Yuen Long Kau Hui', ST_GeomFromText("POINT (22.45 114.03333)")),
+('Wong Tai Sin', ST_GeomFromText("POINT (22.35 114.18333)")),
+('Wan Chai', ST_GeomFromText("POINT (22.28142 114.17258)")),
+('Tuen Mun', ST_GeomFromText("POINT (22.39175 113.97157)")),
+('Tai Po', ST_GeomFromText("POINT (22.45007 114.16877)")),
+('Sha Tin', ST_GeomFromText("POINT (22.38333 114.18333)")),
+('Sham Shui Po', ST_GeomFromText("POINT (22.33023 114.15945)")),
+('Sai Kung', ST_GeomFromText("POINT (22.38333 114.26667)")),
+('Kowloon', ST_GeomFromText("POINT (22.31667 114.18333)")),
+('Hong Kong', ST_GeomFromText("POINT (22.27832 114.17469)")),
+('Central', ST_GeomFromText("POINT (22.28299 114.15846)")),
+('Tung Chung', ST_GeomFromText("POINT (22.28783 113.94243)"));

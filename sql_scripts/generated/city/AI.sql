@@ -1,0 +1,13 @@
+INSERT INTO city (`name`, `geolocation`) VALUES ('The Valley', ST_GeomFromText("POINT (18.21704 -63.05783)")),
+('The Quarter', ST_GeomFromText("POINT (18.20799 -63.04178)")),
+('Farrington', ST_GeomFromText("POINT (18.215 -63.02238)")),
+('Stoney Ground', ST_GeomFromText("POINT (18.22026 -63.04607)")),
+('South Hill Village', ST_GeomFromText("POINT (18.19201 -63.08779)")),
+('Sandy Ground Village', ST_GeomFromText("POINT (18.20118 -63.08998)")),
+('North Side', ST_GeomFromText("POINT (18.22919 -63.04401)")),
+('North Hill Village', ST_GeomFromText("POINT (18.20542 -63.07847)")),
+('Island Harbour', ST_GeomFromText("POINT (18.25601 -63.0102)")),
+('George Hill', ST_GeomFromText("POINT (18.19939 -63.0665)")),
+('East End Village', ST_GeomFromText("POINT (18.23333 -63)")),
+('Blowing Point Village', ST_GeomFromText("POINT (18.17648 -63.09375)")),
+('Sandy Hill', ST_GeomFromText("POINT (18.22104 -63.01329)"));

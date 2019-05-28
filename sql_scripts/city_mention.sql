@@ -1,0 +1,1 @@
+INSERT INTO city_mentions VALUES 

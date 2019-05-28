@@ -1,0 +1,12 @@
+INSERT INTO city (`name`, `geolocation`) VALUES ('Egilsstadir', ST_GeomFromText("POINT (65.26687 -14.39485)")),
+('Akureyri', ST_GeomFromText("POINT (65.68353 -18.0878)")),
+('Selfoss', ST_GeomFromText("POINT (63.93311 -20.99712)")),
+('Reykjavik', ST_GeomFromText("POINT (64.13548 -21.89541)")),
+('Mosfellsbaer', ST_GeomFromText("POINT (64.16667 -21.7)")),
+('Kopavogur', ST_GeomFromText("POINT (64.11234 -21.91298)")),
+('Keflavik', ST_GeomFromText("POINT (64.00492 -22.56242)")),
+('Isafjoerdur', ST_GeomFromText("POINT (66.07475 -23.13498)")),
+('Hafnarfjoerdur', ST_GeomFromText("POINT (64.0671 -21.93774)")),
+('Gardabaer', ST_GeomFromText("POINT (64.08865 -21.92298)")),
+('Borgarnes', ST_GeomFromText("POINT (64.53834 -21.92064)")),
+('Akranes', ST_GeomFromText("POINT (64.32179 -22.0749)"));

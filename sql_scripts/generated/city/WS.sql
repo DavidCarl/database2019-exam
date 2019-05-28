@@ -1,0 +1,10 @@
+INSERT INTO city (`name`, `geolocation`) VALUES ('Satupa itea', ST_GeomFromText("POINT (-13.76593 -172.32686)")),
+('Samamea', ST_GeomFromText("POINT (-13.93375 -171.53122)")),
+('Safotulafai', ST_GeomFromText("POINT (-13.67147 -172.17768)")),
+('Safotu', ST_GeomFromText("POINT (-13.45132 -172.40177)")),
+('Mulifanua', ST_GeomFromText("POINT (-13.83183 -172.03602)")),
+('Lufilufi', ST_GeomFromText("POINT (-13.87449 -171.59857)")),
+('Leulumoega', ST_GeomFromText("POINT (-13.82297 -171.96127)")),
+('Apia', ST_GeomFromText("POINT (-13.83333 -171.76666)")),
+('Afega', ST_GeomFromText("POINT (-13.79726 -171.85308)")),
+('Asau', ST_GeomFromText("POINT (-13.51963 -172.63784)"));
