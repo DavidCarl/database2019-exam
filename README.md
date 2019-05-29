@@ -53,7 +53,7 @@ Unfortunately, we discovered this after we had made our api's and frontend. And 
 
 ### Data handling
 
-For our backend, we decided that we would use two Python libaries: `mysql` & `mongodb`. With these libaries, we made the database connectors and different queries.
+For our backend, we decided that we would use two Python libaries: `pymysql` & `pymongo`. With these libaries, we made the database connectors and different queries.
 
 We choose to send the data we got from the queries as JSON with api's. By doing that we could use JavaScript fetch calls to easily get the data to our frontend. One of the reasons for this approach was that we wished to send as little data as possible to the client browser. Then we would use JavaScript to process the JSON into readable and well formatted HTML.
 
@@ -151,6 +151,8 @@ Here we recommand you to play around a bit with the map and click on it for some
 | The Boy Ranchers,       	| 30ms  	| 18ms    	|
 | Irma in Italy,          	| 39ms  	| 18ms    	|
 
+Its important to keep all the commas as we failed our data cleanup a bit, and failed to remove these. So if its not in the name it will not be possible to find the books.
+
 **Search_Author**
 
 | Query String            	| MySQL 	| MongoDB 	|
@@ -171,6 +173,8 @@ Here we recommand you to play around a bit with the map and click on it for some
 | 53.48045301989892:-2.2849070613417553 	| 2830ms   	|   N/A 	|
 | 35.76761261754951:-78.66225517099298  	| 2475ms  	|   N/A 	|
 
+Since we failed in building up a proper MongoDB these queries will not work if you select MongoDB instead of MySQL.
+
 ### Conclusion
 
 As you have read above, Mongo is faster MySQL for this kind of project. But it's hard for us to pick one above the other. We have a deeper knowledge of MySQL so we found it easier to work with, which allowed us to work faster with MySQL than Mongo. We also did not complete query 4 for Mongo due to our lack of knowlegde. 
@@ -178,5 +182,7 @@ As you have read above, Mongo is faster MySQL for this kind of project. But it's
 Due to the way we decided to set up our api to use JSON, Mongo also has a clear advantage over MySQL. 
 
 But we feel it's more straightforward to get the data out of MySQL, with a few inner join we could effordlessly get exactly what we wanted. We also like that there are concrete rules for what data is where in an ER database. 
+
+For a MySQL improvement, we should index our titles and authors to make it faster to search for them. As most (if not all) important fields are indexed which makes it faster to search. Otherwise we mainly use ID's (primary keys) which by default are indexed.
 
 In the end, if we look past our own bias, we would probably recommend Mongo as the most effecient database for this exerice. It's in most cases faster than MySQL and with proper expertise you would perhaps not run into some of the problems that we had with Mongo. 
