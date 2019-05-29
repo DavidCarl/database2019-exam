@@ -54,5 +54,4 @@ def q4(geolocation):
         if found is False:
             new_obj['title'] = e[1]
             obj['data'].append(new_obj)
-        print(obj)
     return obj

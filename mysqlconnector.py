@@ -172,7 +172,6 @@ def find_books_on_author(author):
 def find_books_on_geolocation(location):
     db = connect()
     ids = None
-    print(location)
     idlist = ''
     try:
         with db.cursor() as cursor:
