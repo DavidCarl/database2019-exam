@@ -79,14 +79,14 @@ def migrate_mysql_to_mongo():
                 if bookInfo[0][3] not in authors:
                     authors.append(row[3])
                 cities[row[4]] = {"lat": row[5], "lng": row[6]}
-        newBook = Book(book_id, title, fileName, authors, cities)
-        books.insert_one(newBook.get())
+            newBook = Book(book_id, title, fileName, authors, cities)
+            books.insert_one(newBook.get())
 
-# migrate_mysql_to_mongo()
+migrate_mysql_to_mongo()
 
-test = books.find({})
-for e in test:
-    pprint(e)
+# test = books.find({})
+# for e in test:
+#     pprint(e)
 
 # b = Book(44,'sometitle','2123.txt',['auth1','auth2'],{'city1':{'lat':0.5,'lng':44.4},'city2':{'lat':5.5,'lng':48.4}})
 # b2 = Book(45,'someothertitle','212443.txt',['auth1','auth2'],{'city1':{'lat':0.5,'lng':44.4},'city2':{'lat':5.5,'lng':48.4}})
