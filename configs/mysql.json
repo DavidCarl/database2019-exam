@@ -1,5 +1,5 @@
 {
-    "ip":"localhost",
+    "ip":"cloudless.guru",
     "port":3306,
     "username":"root",
     "password":"root",

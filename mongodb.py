@@ -2,6 +2,7 @@ import mongoconnector
 
 
 def q1(city):
+    pass
     books = 
     return {
         'data': 
