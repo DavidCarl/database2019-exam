@@ -18,7 +18,7 @@ For our MySQL database we decided on a design that looks like this.
 
 ![MySQL ER](/images/ER-Diagram.png)
 
-We chose to have 3 tables for books, authors and cities. The reason for this is because of the end-user queries where it would be easier to search a table for matches, then get the rest through the intermediate tables. 
+We chose to have 3 tables: books, authors and cities. The reason for this is because of the end-user queries where it would be easier to search a table for matches, then get the rest through the intermediate tables. 
 
 #### Mongo
 
@@ -36,7 +36,25 @@ Books : {
     file : string
 }
 ```
-The reason for this is, as a Mongo is file base database, we would like 
+The reason for this is, as a Mongo is file base database, we would like to keep it simple and use embedded documents. One of the key points that makes Mongo different from MySQL. 
+
+As you can see, our city objects simply contain an latitude and longitude. That is *not* the correct way to store a geolocation in Mongo. The correct way is to use a GeoJSON object, which look like this:
+```js
+location : {
+    type : "Point",
+    coordinates : [float, float]
+}
+```
+Unfortunately, we discovered this after we had made our api's and frontend. And we regrettably, found it too late. 
+
+
+### Data handling
+
+For our backend, we decided that we would use two Python libaries: `mysql` & `mongodb`. With these libaries, we made the database connectors and different queries.
+
+We choose to send the data we got from the queries as JSON with api's. By doing that we could use JavaScript fetch calls to easily get the data to our frontend. One of the reasons for this approach was that we wished to send as little data as possible to clientside. Then we would use JavaScript to process the JSON into readable and well formatted HTML.
+
+This of course, was easier with Mongo as it's already JSON objects. We only had to make some small mutations before we could send it to the frontend. With MySQL we had to completely re-format the data into JSON that we could send on. 
 
 ### Solutions to problems
 
@@ -75,6 +93,24 @@ We made this command to fix it.
 ```
 sed '1igeonameid\tname\tasciiname\talternatenames\tlatitude\tlongitude\tfeature_class\tfeature_code\tcountry_code\tcc2\tadmin1\tadmin2\tadmin3\tadmin4\tpopulation\televation\tdem\ttimezone\tmodification' cities5000.txt > correct.csv
 ```
+
+### Import the data into the databases
+
+Since this dataset is huge and it would have taken a long time to import it all into the databases row by row, we decided to process it all in Python. We constructed a bash grep command that made it possible to find a city in all the books fast, the quickets timing we recorded was 2 seconds to find if a city name had occured in all files and the slowest was around 25 seconds. We then made a python3 script that started a bash command for each city, and put the output in a file. We later used the information in this file to construct our table called 'city_mentions'. 
+
+We also found out that its slower to make many insert statement and it much more optimisted to make a single multi insert, this cut out import time down by hours!
+
+This made it to be a ton of SQL files that had to be executed to our MySQL database, we had over 22000 SQL files by the end of the project, and over 11 hours of runtime on a 20 threads (2 CPU's and 10 threads per CPU) and 80GB of ram. This was the reason for the quick runtime. We calculated this task to take around 7 days (168 hours) of constant compute time if we ran it on one of our laptops.
+
+All of our data has been modified in one way or another in python before ever entering our MySQL database. For our MongoDB database, we simply choose to load data from our MySQL database and then importing it in our MongoDB. This was also done with Python3. What we did here was extract all ID's of books and then made a SQL statement that pulled out all relevant data on that book (author, cities mentioned etc.) and then format it to our MongoDB database format.
+
+### End-user Queires
+
+Some text about the 4 different end-user queries
+
+### Conclusion
+
+Our conclusion................
 
 ### Prerequisites
 You will need a folder called unzipped stored in root of the project. This folder is supposed to hold the files you want to use. We used [these](dcarl.me/archive.tar), and then untarred them and unzipped the zipped files into the folder called unzipped.
