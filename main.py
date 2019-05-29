@@ -21,8 +21,61 @@ def go_through_books():
         pb.print_progress_bar(fileCounter)
     print('File Counter', fileCounter)
 
-def get_author():
-    pass
+def get_author_and_title():
+    entries = {}
+    p1 = subprocess.run(['grep', '-Pr', '-m', '1', "^.*Project\\sGutenberg.*\\sof\\s(.*\\w).+by\\s(.*\\w)", 'unzipped'], stdout=subprocess.PIPE, encoding='utf-8')
+    lines = p1.stdout.split('\n')
+    for line in lines:
+        try:
+            line = line.rstrip()
+            line = line.split(':', 1)
+            book = line[0].rsplit('/', 1)[1]
+            if '.txt' not in book:
+                continue
+            line = line[1].rsplit('by ', 1)
+            title = line[0].strip()
+
+            if title[-2:] == ', ':
+                title = title[:-2]
+            if title[:1] == '*':
+                title = title.rsplit('*', 1)[1]
+            
+            if ord(title[:1]) == 65279:
+                title = title[1:]
+
+            if title[:3] == 'The':
+                title = title[4:]
+
+            if title[:2] == 'A ':
+                title = title[2:]
+
+            if 'End of the Project Gutenberg ' in title:
+                title = title[38:]
+            elif 'End of The Project Gutenberg ' in title:
+                title = title[38:]
+            elif 'End of Project Gutenberg' in title:
+                title = title[34:]
+            elif title[:18] == 'Project Gutenberg ':
+                if title[24:26] == 'of':
+                    title = title[27:]
+                elif title[23] == ',':
+                    title = title[25:]
+                elif title[18:23].lower() == 'ebook':
+                    title = title[24:]
+                elif title[18:23].lower() == 'etext':
+                    title = title[24:]
+                else:
+                    title = title[18:]
+            elif 'Project Gutenberg\'' in title[:19]:
+                title = title[20:]
+
+            authors = line[1]
+            authors = authors.split(' and ')
+            entries[book] = {'title': title, 'authors': authors}
+        except:
+            pass
+
+    return entries
 
 def line_contain_words(line, word):
     pass
@@ -95,6 +148,6 @@ def add_city():
 
 # fix_up()
 # city_mentions_cleanup()
-city_mention()
+# city_mention()
 # add_city()
 # filemanager.load_countries()
