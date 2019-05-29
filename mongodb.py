@@ -1,40 +1,42 @@
-import mongoconnector
+import mongoconnector as mongo_db
+import json
 
 
 def q1(city):
-    books = []
+    res = mongo_db.find_books_on_city(city)
+    data = []
+    for e in res:
+        data.append(e)
+
     return {
-        'data': {} 
+        'data': data, 
+        'db_type': 'mongodb'
     }
-    # return {
-    #     'data': [
-    #             {'title':'title1', 'authors':['name1','name2']},
-    #             {'title':'title2', 'authors':['name1','name2']}
-    #     ],
-    #     'db_type': 'mongodb'
-    # }
 
 
 def q2(title):
+    res = mongo_db.find_all_cities_in_books(title)
+    for e in res:
+        data = e['cities']
     return {
-        'data': {
-                'city1':{'lat':15.34, 'lng': 55.4},
-                'city2':{'lat':0, 'lng': 55.4}
-                },
+        'data': data,
         'db_type': 'mongodb'
     }
 
 def q3(author):
+    res = mongo_db.find_books_on_author(author)
+    books = []
+    cities = {}
+    for e in res:
+        books.append({'title':e['title']})
+        for city in e['cities']:
+            print(city)
+            if city not in cities:
+                cities[city] = e['cities'][city]
     return {
         'data': {
-            'books': [
-                {'title':'title1'},
-                {'title':'title2'}
-            ],
-            'cities': {
-                'city1':{'lat':15.34, 'lng': 55.4},
-                'city2':{'lat':0, 'lng': 55.4}
-            }
+            'books': books,
+            'cities': cities
         },
         'db_type': 'mongodb'
     }

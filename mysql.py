@@ -43,12 +43,16 @@ def q3(author):
 
 def q4(geolocation):
     res = sql_db.find_books_on_geolocation(geolocation)
+    obj = {}
+    obj['data'] = []
     for e in res:
-        print(e)
-    return {
-        'data': [
-            {'title':'title1', 'authors':['name1','name2']},
-            {'title':'title2', 'authors':['name1','name2']}
-        ],
-        'db_type': 'mysql'
-    }
+        new_obj = {}
+        found = False
+        for each in obj['data']:
+            if e[1] in each['title']:
+                found = True
+        if found is False:
+            new_obj['title'] = e[1]
+            obj['data'].append(new_obj)
+        print(obj)
+    return obj

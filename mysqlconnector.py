@@ -82,36 +82,42 @@ def find_books_on_author(author):
 
 # Question 4
 def find_books_on_geolocation(location):
-    #TODO
-    # pass
+    db = connect()
+    ids = None
+    idlist = ''
+    try:
+        with db.cursor() as cursor:
+            sql = 'WITH vicinity as (select ST_GeomFromText(ST_ASTEXT(ST_Buffer(ST_GeomFromText("POINT (%s %s)", 0), 0.1)), 4326) as area) \
+                   SELECT city.name, city.id \
+                   FROM vicinity, city \
+                   WHERE ST_WITHIN(city.geolocation, vicinity.area);'
+            cursor.execute(sql, (location['lat'], location['lng']))
+            ids = cursor.fetchall()
+        size = len(ids)
+        loop = 1
+        for e in ids:
+            idlist += str(e[1])
+            if loop != size:
+                idlist += ','
+            loop += 1
+        db.commit()
+    finally:
+        db.close()
+        return q4_helper(idlist)
+ 
+def q4_helper(id_list):
     db = connect()
     result = None
     try:
         with db.cursor() as cursor:
-            sql = 'WITH vicinity as (select ST_GeomFromText(ST_ASTEXT(ST_Buffer(ST_GeomFromText("POINT (%f %f)", 0), 0.1)), 4326) as area) \
-                SELECT city.name, city.id \
-                FROM vicinity, city \
-                WHERE ST_WITHIN(city.geolocation, vicinity.area);'
-            cursor.execute(sql, (location['lat'], location['lng']))
-            print('pik')
-            ids = cursor.fetchall()
-        db.commit()
-        print(ids)
-        idlist = []
-        for e in ids:
-            idlist.append(e[1])
-        print(idlist)
-        with db.cursor() as cursor:
-            sql2 = f'SELECT b.id, b.title, c.name \
-                    FROM books b \
-                    INNER JOIN city_mentions cm ON b.id = cm.book_id \
-                    INNER JOIN city c ON cm.city_id = c.id \
-                    WHERE c.id IN ({idlist}) AND b.title != '';'
-            cursor.execute(sql, ())
+            sql = f'SELECT b.id, b.title, c.name \
+                   FROM books b \
+                   INNER JOIN city_mentions cm ON b.id = cm.book_id \
+                   INNER JOIN city c ON cm.city_id = c.id \
+                   WHERE c.id IN ({id_list}) AND b.title != \'\';'
+            cursor.execute(sql)
             result = cursor.fetchall()
         db.commit()
     finally:
         db.close()
         return result
-
-    
