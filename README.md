@@ -127,6 +127,8 @@ All of the following strings work for both MongoDB and MySQL. We tried our best 
  
  You can search the following lat lng pairs, they are seperated : ``` 55.76243279434027:12.49851688755325 | 55.676574443752095:12.54795536411575 | 52.44471802074383:13.347558151491285 | 53.48045301989892:-2.2849070613417553 | 35.76761261754951:-78.66225517099298 ```
 
+Since we failed in building up a proper MongoDB these queries will not work if you select MongoDB instead of MySQL.
+
 Here we recommand you to play around a bit with the map and click on it for some time since its interactive and fun to play with. It is still required to click the `Search` button, for results.
 
 #### Timings
@@ -172,8 +174,6 @@ Its important to keep all the commas as we failed our data cleanup a bit, and fa
 | 52.44471802074383:13.347558151491285  	| 2526ms  	|   N/A 	|
 | 53.48045301989892:-2.2849070613417553 	| 2830ms   	|   N/A 	|
 | 35.76761261754951:-78.66225517099298  	| 2475ms  	|   N/A 	|
-
-Since we failed in building up a proper MongoDB these queries will not work if you select MongoDB instead of MySQL.
 
 ### Conclusion
 
