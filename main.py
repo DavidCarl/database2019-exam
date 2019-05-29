@@ -146,6 +146,46 @@ def add_city():
                 sql_generator.end_file('city/' + country, 'continue')
             loop += 1
 
+def author_title_sql():
+    res = sql_db.get_all_id_and_filename()
+    fileNameID = {}
+    for each in res:
+        fileNameID[each[1]] = each[0]
+    data = get_author_and_title()
+    sql_generator.start_file('author', 'authors', '(`name`) ')
+    for each in data:
+        for author in data[each]['authors']:
+            sql_generator.author(author.replace('\'', '`'), 'authors')
+        print(data[each])
+        try:
+            sql_generator.title(data[each]['title'].replace('\'', '`'), fileNameID[each], 'titles')
+        except:
+            pass
+
+def author_book_bridge():
+    sql_generator.start_file('book_author', 'book_author', '')
+    data = get_author_and_title()
+    res = sql_db.get_all_id_and_filename()
+    fileNameID = {}
+    for each in res:
+        fileNameID[each[2]] = each[0]
+    res = sql_db.get_all_id_author()
+    author = {}
+    for each in res:
+        author[each[1]] = each[0]
+    for fileName in data:
+        try:
+            author_file = data[fileName]['authors']
+            for each in author_file:
+                author_single = each.replace('\'', '')
+                book_id = fileNameID[data[fileName]['title'].replace('\'', '')]
+                author_id = author[author_single]
+                sql_generator.book_author(author_id, book_id, 'book_author')
+        except:
+            pass
+            
+author_book_bridge()
+# author_title_sql()
 # fix_up()
 # city_mentions_cleanup()
 # city_mention()

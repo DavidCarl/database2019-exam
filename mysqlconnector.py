@@ -13,15 +13,12 @@ def connect():
                         db=mysql_config['database'])
 
 def insert_book(fileName, title, content):
-    global failed_files
     db = connect()
     try:
         with db.cursor() as cursor:
             sql = "INSERT INTO `books` (`fileName`, `title`, `content`) VALUES (%s, %s, %s)"
             cursor.execute(sql, (fileName, title, content))
         db.commit()
-    except:
-        failed_files.append(fileName)
     finally:
         db.close()
 
@@ -63,7 +60,20 @@ def get_all_id_and_filename():
     result = None
     try:
         with db.cursor() as cursor:
-            sql = "SELECT id, fileName FROM books"
+            sql = "SELECT id, fileName, title FROM books"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        db.commit()
+    finally:
+        db.close()
+        return result
+
+def get_all_id_author():
+    db = connect()
+    result = None
+    try:
+        with db.cursor() as cursor:
+            sql = "SELECT id, name FROM author"
             cursor.execute(sql)
             result = cursor.fetchall()
         db.commit()
