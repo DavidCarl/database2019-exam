@@ -107,3 +107,4 @@ dataset/
 /unzipped
 /test
 sql_scripts/generated
+configs/
