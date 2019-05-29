@@ -1,9 +1,9 @@
 from flask import Flask, url_for, jsonify,render_template
-from flask_googlemaps import GoogleMaps
-from flask_googlemaps import Map
-app = Flask(__name__)
+from flask_restful import Resource, Api, request
+import mysql, mongodb
 
-GoogleMaps(app, key="AIzaSyBvmxwwqPXsP0_0LSSnv-vXVfm8Eu1iCUM")
+app = Flask(__name__)
+api = Api(app)
 
 @app.route("/")
 def index():
@@ -23,19 +23,45 @@ def search_author():
 
 @app.route("/search_location")
 def search_location():
-    mymap = Map(
-        identifier="first-map",
-        lat=55.770135, 
-        lng=12.512226,
-        markers=[(55.770135,12.512226)],
-        maptype_control=False,
-        streetview_control=False
-    )
-    return render_template("search_location.html", mymap=mymap)
+    return render_template("search_location.html")
+
+class q1(Resource):
+    def get(self):
+        json_data = request.get_json(force=True)
+        if json_data['db_type'] == 'mysql':
+            return jsonify(mysql.q1(json_data['city']))
+        else:
+            return jsonify(mongodb.q1(json_data['city']))
 
 
-def get_books():
-    book_list = [{"Title": "A Game of Thrones"}]
+class q2(Resource):
+    def get(self):
+        json_data = request.get_json(force=True)
+        if json_data['db_type'] == 'mysql':
+            return jsonify(mysql.q2(json_data['title']))
+        else:
+            return jsonify(mongodb.q2(json_data['title']))
+
+class q3(Resource):
+    def get(self):
+        json_data = request.get_json(force=True)
+        if json_data['db_type'] == 'mysql':
+            return jsonify(mysql.q3(json_data['author']))
+        else:
+            return jsonify(mongodb.q3(json_data['author']))
+
+class q4(Resource):
+    def get(self):
+        json_data = request.get_json(force=True)
+        if json_data['db_type'] == 'mysql':
+            return jsonify(mysql.q4(json_data['geolocation']))
+        else:
+            return jsonify(mongodb.q4(json_data['geolocation']))
+
+api.add_resource(q1, '/api/1')
+api.add_resource(q2, '/api/2')
+api.add_resource(q3, '/api/3')
+api.add_resource(q4, '/api/4')
 
 
 if __name__ == "__main__":
