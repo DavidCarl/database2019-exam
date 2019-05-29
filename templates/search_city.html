@@ -2,21 +2,28 @@
 
 {% block body %}
 <div class="row" name="search-row">
-    <div class="form-group my-sm-0">
-        <input class="form-control form-control-lg" type="text" placeholder="City name" id="searchInput">
+    <div class="col-md-6 my-2">
+        <div class="form-group my-sm-0">
+            <input class="form-control form-control-lg" type="text" placeholder="City name" id="searchInput">
+        </div>
     </div>
-    <button type="button" class="btn btn-primary btn-lg my-2" onclick="getBooksByCity()">Search</button>
-    <div class="form-check my-2 my-sm-0">
-        <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="db-selector" id="db-selector1" value="mysql" checked="">
-            MySQL
-        </label>
+    <div class="col-md-2 my-2">
+        <button type="button" class="btn btn-primary btn-lg" onclick="getBooksByCity()">Search</button>
     </div>
-    <div class="form-check my-2 my-sm-0">
-        <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="db-selector" id="db-selector2" value="mongo">
-            Mongo DB
-        </label>
+    <div class="col-md-2 my-2">
+        <div class="form-check my-sm-0">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="db-selector" id="db-selector1" value="mysql"
+                    checked="">
+                MySQL
+            </label>
+        </div>
+        <div class="form-check my-sm-0">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="db-selector" id="db-selector2" value="mongo">
+                Mongo DB
+            </label>
+        </div>
     </div>
 </div>
 <div class="row">
