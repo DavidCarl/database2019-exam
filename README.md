@@ -1,5 +1,6 @@
 # database2019-exam
 ## Made By Tjalfe Møller, Alexander Nielsen & David Carl
+## Group Name: Blin
 
 ## [Link to website](http://cloudless.guru:5000)
 
