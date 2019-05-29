@@ -12,22 +12,55 @@ def connect():
                         passwd=mysql_config['password'],
                         db=mysql_config['database'])
 
-def insert_book(fileName, title, author, content):
+def insert_book(fileName, title, content):
     db = connect()
     try:
         with db.cursor() as cursor:
-            sql = "INSERT INTO `books` (`fileName`, `title`, `author`, `content`) VALUES (%s, %s, %s, %s)"
-            cursor.execute(sql, (fileName, title, author, content))
-        db.commit()        
+            sql = "INSERT INTO `books` (`fileName`, `title`, `content`) VALUES (%s, %s, %s)"
+            cursor.execute(sql, (fileName, title, content))
+        db.commit()
     finally:
         db.close()
 
-def get_all_book_ids():
+def insert_city(city):
+    db = connect()
+    try:
+        with db.cursor() as cursor:
+            sql = "INSERT INTO `cities` (`city`) VALUES (%s)"
+            cursor.execute(sql, (city))
+        db.commit()
+    finally:
+        db.close()
+
+def insert_city_match(book_id, city):
+    db = connect()
+    try:
+        with db.cursor() as cursor:
+            sql = "INSERT INTO `citys_in_books` (`book_id`, `city`) VALUES (%s, %s)"
+            cursor.execute(sql, (book_id, city))
+        db.commit()
+    finally:
+        db.close()
+
+def get_city_id(city):
     db = connect()
     result = None
     try:
         with db.cursor() as cursor:
-            sql = 'SELECT id FROM books;'
+            sql = "SELECT id FROM city WHERE city.name = %s"
+            cursor.execute(sql, (city))
+            result = cursor.fetchone()
+        db.commit()
+    finally:
+        db.close()
+        return result
+
+def get_all_id_and_filename():
+    db = connect()
+    result = None
+    try:
+        with db.cursor() as cursor:
+            sql = "SELECT id, fileName, title FROM books"
             cursor.execute(sql)
             result = cursor.fetchall()
         db.commit()
@@ -49,6 +82,30 @@ def get_mongoDB_obj_from_id(book_id):
                     WHERE b.id = %s'
             cursor.execute(sql, (book_id))
             result = cursor.fetchall()
+        db.commit()
+    finally:
+        db.close()
+        return result
+
+def get_all_id_author():
+    db = connect()
+    result = None
+    try:
+        with db.cursor() as cursor:
+            sql = "SELECT id, name FROM author"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        db.commit()
+    finally:
+        db.close()
+        return result
+
+def setup_city_mention(id, fileName):
+    db = connect()
+    try:
+        with db.cursor() as cursor:
+            sql = "INSERT INTO city_mentions VALUES (%s, (SELECT id FROM books WHERE fileName = %s))"
+            cursor.execute(sql, (id, fileName))
         db.commit()
     finally:
         db.close()

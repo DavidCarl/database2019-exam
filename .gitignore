@@ -105,6 +105,8 @@ venv.bak/
 
 dataset/
 /unzipped
-dump.sql
-/sql_scripts/generated
 /test
+sql_scripts/generated
+configs/
+
+dump.sql
