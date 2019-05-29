@@ -78,7 +78,7 @@ def migrate_mysql_to_mongo():
             for row in bookInfo:
                 if bookInfo[0][3] not in authors:
                     authors.append(row[3])
-                cities[row[4]] = {"lat": row[5], "lng": row[6]}
+                cities[row[4].replace(',', '')] = {"lat": row[5], "lng": row[6]}
             newBook = Book(book_id, title, fileName, authors, cities)
             books.insert_one(newBook.get())
 
