@@ -1,9 +1,5 @@
 from flask import Flask, url_for, jsonify,render_template
-from flask_googlemaps import GoogleMaps
-from flask_googlemaps import Map
 app = Flask(__name__)
-
-GoogleMaps(app, key="AIzaSyBvmxwwqPXsP0_0LSSnv-vXVfm8Eu1iCUM")
 
 @app.route("/")
 def index():
@@ -23,19 +19,7 @@ def search_author():
 
 @app.route("/search_location")
 def search_location():
-    mymap = Map(
-        identifier="first-map",
-        lat=55.770135, 
-        lng=12.512226,
-        markers=[(55.770135,12.512226)],
-        maptype_control=False,
-        streetview_control=False
-    )
-    return render_template("search_location.html", mymap=mymap)
-
-
-def get_books():
-    book_list = [{"Title": "A Game of Thrones"}]
+    return render_template("search_location.html")
 
 
 if __name__ == "__main__":
