@@ -28,7 +28,7 @@ def search_location():
 
 
 class q1(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q1(json_data['city']))
@@ -37,7 +37,7 @@ class q1(Resource):
 
 
 class q2(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q2(json_data['title']))
@@ -45,7 +45,7 @@ class q2(Resource):
             return jsonify(mongodb.q2(json_data['title']))
 
 class q3(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q3(json_data['author']))
@@ -53,7 +53,7 @@ class q3(Resource):
             return jsonify(mongodb.q3(json_data['author']))
 
 class q4(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q4(json_data['geolocation']))

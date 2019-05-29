@@ -2,7 +2,7 @@ const url = "localhost:5000"
 
 
 function getBooksByCity() {
-    var endpoint = url + "/api/1"
+    var endpoint = "/api/1"
     var db_type 
     if (document.getElementsByName("db-selector")[0].checked) {
         db_type = "mysql"
@@ -29,7 +29,6 @@ function createTable(data) {
     var table = document.createElement('table')
     table.className = "table table-hover"
     var tr = document.createElement('tr')
-
     // Creating headers
     for(var i in data["data"][0]) {
         var th = document.createElement('th')
@@ -54,7 +53,7 @@ function createTable(data) {
 
 function apiCall(endpoint, body, callback) {
     fetch(endpoint, {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
