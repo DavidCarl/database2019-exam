@@ -52,9 +52,9 @@ Unfortunately, we discovered this after we had made our api's and frontend. And 
 
 For our backend, we decided that we would use two Python libaries: `mysql` & `mongodb`. With these libaries, we made the database connectors and different queries.
 
-We choose to send the data we got from the queries as JSON with api's. By doing that we could use JavaScript fetch calls to easily get the data to our frontend. One of the reasons for this approach was that we wished to send as little data as possible to clientside. Then we would use JavaScript to process the JSON into readable and well formatted HTML.
+We choose to send the data we got from the queries as JSON with api's. By doing that we could use JavaScript fetch calls to easily get the data to our frontend. One of the reasons for this approach was that we wished to send as little data as possible to the client browser. Then we would use JavaScript to process the JSON into readable and well formatted HTML.
 
-This of course, was easier with Mongo as it's already JSON objects. We only had to make some small mutations before we could send it to the frontend. With MySQL we had to completely re-format the data into JSON that we could send on. 
+This of course, was easier with Mongo as it's already JSON objects. We only had to make some small mutations before we could send it to the frontend. With MySQL we had to completely re-format the data into JSON that we could send on.
 
 ### Solutions to problems
 
@@ -110,7 +110,13 @@ Some text about the 4 different end-user queries
 
 ### Conclusion
 
-Our conclusion................
+As you have read above, Mongo is faster MySQL for this kind of project. But it's hard for us to pick one above the other. We have a deeper knowledge of MySQL so we found it easier to work with, which allowed us to work faster with MySQL than Mongo. We also did not complete query 4 for Mongo due to our lack of knowlegde. 
+
+Due to the way we decided to set up our api to use JSON, Mongo also has a clear advantage over MySQL. 
+
+But we feel it's more straightforward to get the data out of MySQL, with a few inner join we could effordlessly get exactly what we wanted. We also like that there are concrete rules for what data is where in an ER database. 
+
+In the end, if we look past our own bias, we would probably recommend Mongo as the most effecient database for this exerice. It's in most cases faster than MySQL and with proper expertise you would perhaps not run into some of the problems that we had with Mongo. 
 
 ### Prerequisites
 You will need a folder called unzipped stored in root of the project. This folder is supposed to hold the files you want to use. We used [these](dcarl.me/archive.tar), and then untarred them and unzipped the zipped files into the folder called unzipped.
