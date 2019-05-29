@@ -2,6 +2,7 @@ import pymongo
 from pymongo import MongoClient
 from bson.son import SON
 from pprint import pprint
+import mysqlconnector as sql_db
 import filemanager
 
 
@@ -53,8 +54,25 @@ def find_books_on_author(author):
 def find_books_on_geolocation(location):
     #TODO
     pass
-    # result = None
-    # try:
-    #     result = books.find({f'cities.*.lat': location['lat']},{'_id':0, 'title':1, 'cities':1})        
-    # finally:
-    #     return result
+
+def migrate_mysql_to_mongo():
+    all_book_id = sql_db.get_all_book_ids()
+    for each in all_book_id:
+        bookInfo = sql_db.get_mongoDB_obj_from_id(each[0])
+        book_id = None
+        title = None
+        fileName = None
+        authors = []
+        cities = {}
+        if bookInfo is not ():
+            book_id = bookInfo[0][0]
+            fileName = bookInfo[0][1]
+            title = bookInfo[0][2]
+            for row in bookInfo:
+                if bookInfo[0][3] not in authors:
+                    authors.append(row[3])
+                cities[row[4].replace(',', '')] = {"lat": row[5], "lng": row[6]}
+            newBook = Book(book_id, title, fileName, authors, cities)
+            books.insert_one(newBook.get())
+
+# migrate_mysql_to_mongo()

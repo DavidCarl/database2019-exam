@@ -22,6 +22,38 @@ def insert_book(fileName, title, author, content):
     finally:
         db.close()
 
+def get_all_book_ids():
+    db = connect()
+    result = None
+    try:
+        with db.cursor() as cursor:
+            sql = 'SELECT id FROM books;'
+            cursor.execute(sql)
+            result = cursor.fetchall()
+        db.commit()
+    finally:
+        db.close()
+        return result
+
+def get_mongoDB_obj_from_id(book_id):
+    db = connect()
+    result = None
+    try:
+        with db.cursor() as cursor:
+            sql = 'SELECT b.id, b.fileName, b.title, a.name as authorName, c.name as cityName, ST_Latitude(geolocation) as Lat, ST_Longitude(geolocation) as Lng \
+                    FROM books b \
+                    INNER JOIN book_authors ba on b.id = ba.book_id \
+                    INNER JOIN city_mentions cm on b.id = cm.book_id \
+                    INNER JOIN city c on cm.city_id = c.id \
+                    INNER JOIN author a on ba.author_id = a.id \
+                    WHERE b.id = %s'
+            cursor.execute(sql, (book_id))
+            result = cursor.fetchall()
+        db.commit()
+    finally:
+        db.close()
+        return result
+
 # This could work for question 1
 def find_books_on_city(city):
     db = connect()
