@@ -1,4 +1,6 @@
 {
     "ip":"localhost",
-    "port":27017
+    "port":27017,
+    "username":"root",
+    "password":"1qaz2wsx"
 }

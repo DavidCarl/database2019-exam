@@ -5,8 +5,6 @@ import filemanager
 
 mysql_config = filemanager.load_file('configs/mysql.json')
 
-failed_files = []
-
 def connect():
     return pymysql.connect(host=mysql_config['ip'],
                         port=mysql_config['port'],
@@ -33,7 +31,13 @@ def find_books_on_city(city):
     result = None
     try:
         with db.cursor() as cursor:
-            sql = 'SELECT fileName, author, title FROM exam2019.books WHERE MATCH(`content`) AGAINST(%s)'
+            sql = 'SELECT c.name as CityName, b.id as bookID, b.fileName, b.title as BookTitle, a.name as AuthorName \
+                    FROM city c \
+                    INNER JOIN city_mentions cm on c.id = cm.city_id \
+                    INNER JOIN books b on cm.book_id = b.id \
+                    INNER JOIN book_authors ba on b.id = ba.book_id \
+                    INNER JOIN author a on ba.author_id = a.id \
+                    WHERE c.name = %s;'
             cursor.execute(sql, (city))
             result = cursor.fetchall()
         db.commit()
@@ -42,13 +46,17 @@ def find_books_on_city(city):
         return result
 
 # Question 2
-def all_cities_in_books(cities, title):
+def find_all_cities_in_books(title):
     db = connect()
     result = None
     try:
         with db.cursor() as cursor:
-            sql = 'SELECT fileName, author, title FROM exam2019.books WHERE MATCH(`content`) AGAINST(%s) AND title = \'%s\''
-            cursor.execute(sql, (cities, title))
+            sql = 'SELECT b.id as BookID, b.title as BookTitle, c.name as CityName, c.geolocation \
+                    FROM books b \
+                    INNER JOIN city_mentions cm on b.id = cm.book_id \
+                    INNER JOIN city c on cm.city_id = c.id \
+                    WHERE b.title = %s;'
+            cursor.execute(sql, (title))
             result = cursor.fetchall()
         db.commit()
     finally:
@@ -56,35 +64,26 @@ def all_cities_in_books(cities, title):
         return result
 
 # Question 3
-def books_on_author(author):
-    pass
-    # db = connect()
-    # result = None
-    # try:
-    #     with db.cursor() as cursor:
-    #         sql = 'SELECT fileName, author, title FROM exam2019.books WHERE MATCH(`content`) AGAINST(%s) AND title = \'%s\''
-    #         cursor.execute(sql, (cities, title))
-    #         result = cursor.fetchall()
-    #     db.commit()
-    # finally:
-    #     db.close()
-    #     return result
+def find_books_on_author(author):
+    db = connect()
+    result = None
+    try:
+        with db.cursor() as cursor:
+            sql = 'SELECT * \
+                    FROM author a \
+                    INNER JOIN book_authors ba on a.id = ba.author_id \
+                    INNER JOIN books b on ba.book_id = b.id \
+                    INNER JOIN city_mentions cm on b.id = cm.book_id \
+                    INNER JOIN city c on cm.city_id = c.id \
+                    WHERE a.name = %s'
+            cursor.execute(sql, (author))
+            result = cursor.fetchall()
+        db.commit()
+    finally:
+        db.close()
+        return result
 
 # Question 4
-def books_on_geolocation(location):
+def find_books_on_geolocation(location):
+    #TODO
     pass
-    # db = connect()
-    # result = None
-    # try:
-    #     with db.cursor() as cursor:
-    #         sql = 'SELECT fileName, author, title FROM exam2019.books WHERE MATCH(`content`) AGAINST(%s) AND title = \'%s\''
-    #         cursor.execute(sql, (cities, title))
-    #         result = cursor.fetchall()
-    #     db.commit()
-    # finally:
-    #     db.close()
-    #     return result
-
-def save_failed_files():
-    print(failed_files)
-    # filemanager.save_file(failed_files, )

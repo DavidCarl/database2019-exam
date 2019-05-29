@@ -1,14 +1,18 @@
-
+import mongoconnector
 
 
 def q1(city):
+    books = 
     return {
-        'data': [
-                {'title':'title1', 'authors':['name1','name2']},
-                {'title':'title2', 'authors':['name1','name2']}
-        ],
-        'db_type': 'mongodb'
+        'data': 
     }
+    # return {
+    #     'data': [
+    #             {'title':'title1', 'authors':['name1','name2']},
+    #             {'title':'title2', 'authors':['name1','name2']}
+    #     ],
+    #     'db_type': 'mongodb'
+    # }
 
 
 def q2(title):

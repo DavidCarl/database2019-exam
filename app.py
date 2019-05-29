@@ -33,7 +33,6 @@ class q1(Resource):
         else:
             return jsonify(mongodb.q1(json_data['city']))
 
-
 class q2(Resource):
     def get(self):
         json_data = request.get_json(force=True)
