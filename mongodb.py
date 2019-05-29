@@ -2,9 +2,9 @@ import mongoconnector
 
 
 def q1(city):
-    books = 
+    books = []
     return {
-        'data': 
+        'data': {} 
     }
     # return {
     #     'data': [

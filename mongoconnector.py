@@ -67,6 +67,6 @@ b2 = Book(45,'someothertitle','212443.txt',['auth1','auth2'],{'city1':{'lat':0.5
 books.insert_one(b.get())
 books.insert_one(b2.get())
 
-res = find_books_on_geolocation({'lat':0.5,'lng':44.4})
-for e in res:
-    pprint(e)
+# res = find_books_on_geolocation({'lat':0.5,'lng':44.4})
+# for e in res:
+#     pprint(e)

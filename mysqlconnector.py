@@ -13,15 +13,12 @@ def connect():
                         db=mysql_config['database'])
 
 def insert_book(fileName, title, author, content):
-    global failed_files
     db = connect()
     try:
         with db.cursor() as cursor:
             sql = "INSERT INTO `books` (`fileName`, `title`, `author`, `content`) VALUES (%s, %s, %s, %s)"
             cursor.execute(sql, (fileName, title, author, content))
-        db.commit()
-    except:
-        failed_files.append(fileName)
+        db.commit()        
     finally:
         db.close()
 
@@ -51,7 +48,7 @@ def find_all_cities_in_books(title):
     result = None
     try:
         with db.cursor() as cursor:
-            sql = 'SELECT b.id as BookID, b.title as BookTitle, c.name as CityName, c.geolocation \
+            sql = 'SELECT b.id as BookID, b.title as BookTitle, c.name as CityName, ST_Latitude(geolocation) as Latitude, ST_Longitude(geolocation) as Longitude \
                     FROM books b \
                     INNER JOIN city_mentions cm on b.id = cm.book_id \
                     INNER JOIN city c on cm.city_id = c.id \
@@ -69,13 +66,13 @@ def find_books_on_author(author):
     result = None
     try:
         with db.cursor() as cursor:
-            sql = 'SELECT * \
+            sql = 'SELECT a.name, b.title, c.name, ST_Latitude(c.geolocation) as Latitude, ST_Longitude(c.geolocation) as Longitude \
                     FROM author a \
                     INNER JOIN book_authors ba on a.id = ba.author_id \
                     INNER JOIN books b on ba.book_id = b.id \
                     INNER JOIN city_mentions cm on b.id = cm.book_id \
                     INNER JOIN city c on cm.city_id = c.id \
-                    WHERE a.name = %s'
+                    WHERE a.name = %s;'
             cursor.execute(sql, (author))
             result = cursor.fetchall()
         db.commit()
@@ -86,4 +83,35 @@ def find_books_on_author(author):
 # Question 4
 def find_books_on_geolocation(location):
     #TODO
-    pass
+    # pass
+    db = connect()
+    result = None
+    try:
+        with db.cursor() as cursor:
+            sql = 'WITH vicinity as (select ST_GeomFromText(ST_ASTEXT(ST_Buffer(ST_GeomFromText("POINT (%f %f)", 0), 0.1)), 4326) as area) \
+                SELECT city.name, city.id \
+                FROM vicinity, city \
+                WHERE ST_WITHIN(city.geolocation, vicinity.area);'
+            cursor.execute(sql, (location['lat'], location['lng']))
+            print('pik')
+            ids = cursor.fetchall()
+        db.commit()
+        print(ids)
+        idlist = []
+        for e in ids:
+            idlist.append(e[1])
+        print(idlist)
+        with db.cursor() as cursor:
+            sql2 = f'SELECT b.id, b.title, c.name \
+                    FROM books b \
+                    INNER JOIN city_mentions cm ON b.id = cm.book_id \
+                    INNER JOIN city c ON cm.city_id = c.id \
+                    WHERE c.id IN ({idlist}) AND b.title != '';'
+            cursor.execute(sql, ())
+            result = cursor.fetchall()
+        db.commit()
+    finally:
+        db.close()
+        return result
+
+    

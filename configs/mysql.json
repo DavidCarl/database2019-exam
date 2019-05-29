@@ -1,7 +1,7 @@
 {
-    "ip":"localhost",
+    "ip":"91.100.5.132",
     "port":3306,
     "username":"root",
-    "password":"root",
+    "password":"1qaz2wsx",
     "database":"exam2019"
 }
