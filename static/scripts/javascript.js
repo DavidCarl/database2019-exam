@@ -55,8 +55,8 @@ function getBooksByGeolocation() {
         db_type = "mongo"
     }
     geolocation = {
-        "lat": document.getElementById("lat"),
-        "lng": document.getElementById("lng")
+        "lat": document.getElementById("lat").value,
+        "lng": document.getElementById("lng").value
     }
 
     var body = { "db_type": db_type, "geolocation": geolocation }

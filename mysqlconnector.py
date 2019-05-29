@@ -109,7 +109,6 @@ def setup_city_mention(id, fileName):
         db.commit()
     finally:
         db.close()
-        return result
 
 # This could work for question 1
 def find_books_on_city(city):
@@ -173,14 +172,15 @@ def find_books_on_author(author):
 def find_books_on_geolocation(location):
     db = connect()
     ids = None
+    print(location)
     idlist = ''
     try:
         with db.cursor() as cursor:
-            sql = 'WITH vicinity as (select ST_GeomFromText(ST_ASTEXT(ST_Buffer(ST_GeomFromText("POINT (%s %s)", 0), 0.1)), 4326) as area) \
+            sql = f'WITH vicinity as (select ST_GeomFromText(ST_ASTEXT(ST_Buffer(ST_GeomFromText("POINT ({location["lat"]} {location["lng"]})", 0), 0.1)), 4326) as area) \
                    SELECT city.name, city.id \
                    FROM vicinity, city \
                    WHERE ST_WITHIN(city.geolocation, vicinity.area);'
-            cursor.execute(sql, (location['lat'], location['lng']))
+            cursor.execute(sql)
             ids = cursor.fetchall()
         size = len(ids)
         loop = 1
