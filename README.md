@@ -8,7 +8,35 @@ We used the provided download script from this [repository](https://github.com/d
 
 We decided to make this project in Python3 since it had most (if not all) of our desired features and all 3 of us is fairly competent in it.
 
+### Databases
+
 As for which 2 databases we decided on it is MongoDB and MySQL. We choose those 2 because first of we like JSON so MongoDB sounded like a good challange and we all was fairly confident in MySQL so it would be nice to see if we could match the 2 types of databases, or if we would have a hard time to do it.
+
+#### MySQL
+
+For our MySQL database we decided on a design that looks like this.
+
+![MySQL ER](/images/ER-Diagram.png)
+
+We chose to have 3 tables for books, authors and cities. The reason for this is because of the end-user queries where it would be easier to search a table for matches, then get the rest through the intermediate tables. 
+
+#### Mongo
+
+We decided to only use one collection for books, which look like this.
+```js
+Books : {
+    _id : string,
+    title : string,
+    authors : [ string, ...],
+    cities : { 
+        city_name(string) : { 
+            lat : float, 
+            lng : float
+        }, ...},
+    file : string
+}
+```
+The reason for this is, as a Mongo is file base database, we would like 
 
 ### Solutions to problems
 
@@ -47,6 +75,7 @@ We made this command to fix it.
 ```
 sed '1igeonameid\tname\tasciiname\talternatenames\tlatitude\tlongitude\tfeature_class\tfeature_code\tcountry_code\tcc2\tadmin1\tadmin2\tadmin3\tadmin4\tpopulation\televation\tdem\ttimezone\tmodification' cities5000.txt > correct.csv
 ```
+
 ### Prerequisites
 You will need a folder called unzipped stored in root of the project. This folder is supposed to hold the files you want to use. We used [these](dcarl.me/archive.tar), and then untarred them and unzipped the zipped files into the folder called unzipped.
 
