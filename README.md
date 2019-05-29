@@ -1,5 +1,8 @@
 # database2019-exam
-## Made By Tjalfe Moeller, Alexander Nielsen & David Carl
+## Made By Tjalfe Møller, Alexander Nielsen & David Carl
+
+## [Link to website](http://cloudless.guru:5000)
+
 ### Introduction
 
 This exam assignment is the 'Gutenberg Project'. You can find it [here](https://github.com/datsoftlyngby/soft2019spring-databases/blob/master/Exam/GutenbergProject.md).
@@ -177,12 +180,3 @@ Due to the way we decided to set up our api to use JSON, Mongo also has a clear 
 But we feel it's more straightforward to get the data out of MySQL, with a few inner join we could effordlessly get exactly what we wanted. We also like that there are concrete rules for what data is where in an ER database. 
 
 In the end, if we look past our own bias, we would probably recommend Mongo as the most effecient database for this exerice. It's in most cases faster than MySQL and with proper expertise you would perhaps not run into some of the problems that we had with Mongo. 
-
-### Prerequisites
-You will need a folder called unzipped stored in root of the project. This folder is supposed to hold the files you want to use. We used [these](dcarl.me/archive.tar), and then untarred them and unzipped the zipped files into the folder called unzipped.
-
-Other than that you would also need to change the configuration in the configs folder. Here we have a MongoDB config and a MySQL config.
-
-### How To Run
-
-\#Todo: We have nothing note worthy to run yet!
