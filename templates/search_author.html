@@ -2,31 +2,40 @@
 
 {% block body %}
 <div class="row" name="search-row">
-    <form class="form-inline col-md-10">
-        <!-- COMPLETE FORM LATER -->
+    <div class="col-md-6 my-2">
         <div class="form-group my-sm-0">
-            <input class="form-control form-control-lg" type="text" placeholder="Author name" id="inputLarge">
+            <input class="form-control form-control-lg" type="text" placeholder="Author name" id="searchInput">
         </div>
-        <button type="submit" class="btn btn-primary btn-lg my-2">Search</button>
-        <div class="form-check my-2 my-sm-0">
+    </div>
+    <div class="col-md-2 my-2">
+        <button type="button" class="btn btn-primary btn-lg" onclick="getBooksCitiesByAuthor()">Search</button>
+    </div>
+    <div class="col-md-2 my-2">
+        <div class="form-check my-sm-0">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="db-selector" id="db-selector1" value="mysql"
                     checked="">
                 MySQL
             </label>
         </div>
-        <div class="form-check my-2 my-sm-0">
+        <div class="form-check my-sm-0">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="db-selector" id="db-selector2" value="mongo">
                 Mongo DB
             </label>
         </div>
-    </form>
-</div>
-<div class="row" name="result-row">
-    <div class="col-md-10">
-        <h1>lists all books written by that author and plots all cities mentioned in any of the books onto a map</h1>
     </div>
 </div>
+<h3>Table with books and map with all cities in given book</h3>
+<div class="row" name="result-row">
+    <div class="col-md-2" id="result-col">
+        Books
+    </div>
+    <div class="col-md-10">
+        <div id="map"></div>
+    </div>
+</div>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvmxwwqPXsP0_0LSSnv-vXVfm8Eu1iCUM&callback=initMap"></script>
 
 {% endblock %}

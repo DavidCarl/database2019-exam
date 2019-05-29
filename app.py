@@ -1,4 +1,5 @@
 from flask import Flask, url_for, jsonify,render_template
+
 from flask_restful import Resource, Api, request
 import mysql, mongodb
 
@@ -25,8 +26,9 @@ def search_author():
 def search_location():
     return render_template("search_location.html")
 
+
 class q1(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q1(json_data['city']))
@@ -34,7 +36,7 @@ class q1(Resource):
             return jsonify(mongodb.q1(json_data['city']))
 
 class q2(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q2(json_data['title']))
@@ -42,7 +44,7 @@ class q2(Resource):
             return jsonify(mongodb.q2(json_data['title']))
 
 class q3(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q3(json_data['author']))
@@ -50,7 +52,7 @@ class q3(Resource):
             return jsonify(mongodb.q3(json_data['author']))
 
 class q4(Resource):
-    def get(self):
+    def post(self):
         json_data = request.get_json(force=True)
         if json_data['db_type'] == 'mysql':
             return jsonify(mysql.q4(json_data['geolocation']))
@@ -61,6 +63,7 @@ api.add_resource(q1, '/api/1')
 api.add_resource(q2, '/api/2')
 api.add_resource(q3, '/api/3')
 api.add_resource(q4, '/api/4')
+
 
 
 if __name__ == "__main__":

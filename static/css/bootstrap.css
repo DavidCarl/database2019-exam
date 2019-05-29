@@ -43,8 +43,10 @@
   
 /* CUSTOM CSS */
 
-.map {
-  width: 40rem;
+#map {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50rem;
   height: 40rem;
 }
 
