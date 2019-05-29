@@ -108,3 +108,5 @@ dataset/
 /test
 sql_scripts/generated
 configs/
+
+dump.sql
