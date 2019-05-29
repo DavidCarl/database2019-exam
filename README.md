@@ -106,7 +106,67 @@ All of our data has been modified in one way or another in python before ever en
 
 ### End-user Queires
 
-Some text about the 4 different end-user queries
+All of the following strings work for both MongoDB and MySQL. We tried our best to have a 1 to 1 database.
+
+ http://cloudless.guru:5000/search_city
+
+ You can search by the following strings, its a mix of bigger and smaller cities. This should give a mixed result set: ``` Copenhagen | London | Washington | Ordino | Kukes ``` 
+
+ http://cloudless.guru:5000/search_title
+
+ You can search by the following strings: ``` Beauty and the Beast, | The Valley of Vision, | Shakspere & Typography, | The Boy Ranchers, | Irma in Italy, ```
+
+ http://cloudless.guru:5000/search_author
+ 
+ You can search by the following strings: ``` Noel Coward | Frank E. Miller | Mary E. Wilkins Freeman | W.W. Jacobs | Rex Beach ```
+
+ http://cloudless.guru:5000/search_location
+ 
+ You can search the following lat lng pairs, they are seperated : ``` 55.76243279434027:12.49851688755325 | 55.676574443752095:12.54795536411575 | 52.44471802074383:13.347558151491285 | 53.48045301989892:-2.2849070613417553 | 35.76761261754951:-78.66225517099298 ```
+
+Here we recommand you to play around a bit with the map and click on it for some time since its interactive and fun to play with. It is still required to click the `Search` button, for results.
+
+#### Timings
+
+**Search_city**
+
+| Query String 	| MySQL   	| MongoDB 	|
+|--------------	|---------	|---------	|
+| Copenhagen   	| 3125ms  	| 46ms    	|
+| London       	| 3351ms  	| 151ms   	|
+| Washington   	| 3179ms  	| 80ms    	|
+| Ordino       	| 27ms    	| 57ms    	|
+| Kukes        	| 3051ms 	| 43ms    	|
+
+**Search_title**
+
+| Query String            	| MySQL 	| MongoDB 	|
+|-------------------------	|-------	|---------	|
+| Beauty and the Beast,   	| 41ms  	| 18ms    	|
+| The Valley of Vision,   	| 38ms  	| 19ms    	|
+| Shakspere & Typography, 	| 27ms  	| 19ms    	|
+| The Boy Ranchers,       	| 30ms  	| 18ms    	|
+| Irma in Italy,          	| 39ms  	| 18ms    	|
+
+**Search_Author**
+
+| Query String            	| MySQL 	| MongoDB 	|
+|-------------------------	|-------	|---------	|
+| Noel Coward             	| 62ms  	| 25ms    	|
+| Frank E. Miller         	| 49ms  	| 27ms    	|
+| Mary E. Wilkins Freeman 	| 101ms 	| 33ms    	|
+| W.W. Jacobs             	| 141ms 	| 37ms    	|
+| Rex Beach               	| 92ms  	| 37ms    	|
+
+**Search_location**
+
+| Query String                          	| MySQL 	| MongoDB 	|
+|---------------------------------------	|-------	|---------	|
+| 55.76243279434027:12.49851688755325   	| 2518ms  	|   N/A	    |
+| 55.676574443752095:12.54795536411575  	| 2558ms  	|   N/A 	|
+| 52.44471802074383:13.347558151491285  	| 2526ms  	|   N/A 	|
+| 53.48045301989892:-2.2849070613417553 	| 2830ms   	|   N/A 	|
+| 35.76761261754951:-78.66225517099298  	| 2475ms  	|   N/A 	|
 
 ### Conclusion
 
