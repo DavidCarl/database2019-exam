@@ -3,6 +3,7 @@ import re
 import mysqlconnector as sql_db
 import subprocess
 import sql_generator
+import os
 from console_progressbar import ProgressBar
 
 
@@ -27,6 +28,7 @@ def line_contain_words(line, word):
     pass
 
 def city_mention():
+    print('Starting to generate SQL files on mentions!')
     res = sql_db.get_all_id_and_filename()
     fileNameID = {}
     for each in res:
@@ -36,14 +38,30 @@ def city_mention():
         city_id = sql_db.get_city_id(city[:-5])
         if city_id is not None:
             sql_generator.start_file('city_mentions', 'mentions/' + city[:-5], '')
-            # print(city[:-5])
-            # print(city_id[0])
             for line in filemanager.load_mentions(city):
                 if line[-4:] == '.txt':
                     try:
                         sql_generator.city_mentions(city_id[0], fileNameID[line.split('/')[-1:][0]], 'mentions/' + city[:-5])
                     except:
-                        print(f'I crashed on {line.split("/")[-1:][0]}')
+                        pass
+                        # print(f'I crashed on {line.split("/")[-1:][0]}')
+    city_mentions_cleanup()
+    fix_up()
+
+def city_mentions_cleanup():
+    for each in filemanager.city_mentions_sql():
+        delete = False
+        with open('sql_scripts/generated/mentions/' + each, 'r') as sql_file:
+            lineList = sql_file.readlines()
+            if len(lineList) == 1 and lineList[0] == 'INSERT INTO city_mentions VALUES ':
+                delete = True
+        if delete is True:
+            print('Deleting')
+            os.remove('sql_scripts/generated/mentions/' + each)
+
+        # print(each)
+
+def fix_up():    
     sqlfiles = filemanager.city_mentions_sql()
     for each in sqlfiles:
         lineList = None
@@ -51,7 +69,9 @@ def city_mention():
         with open('sql_scripts/generated/mentions/' + each, 'r') as sql_file:
             lineList = sql_file.readlines()
             certainLine = len(lineList) - 1
-        lineList[certainLine] = lineList[certainLine].replace(',', ';')
+        listedLine = list(lineList[certainLine])
+        listedLine[len(listedLine) - 2] = ';'
+        lineList[certainLine] = ''.join(listedLine)
         with open('sql_scripts/generated/mentions/' + each, 'w') as sql_file:
             for item in lineList:
                 sql_file.write("%s" % item)
@@ -73,6 +93,8 @@ def add_city():
                 sql_generator.end_file('city/' + country, 'continue')
             loop += 1
 
+# fix_up()
+# city_mentions_cleanup()
 city_mention()
 # add_city()
 # filemanager.load_countries()

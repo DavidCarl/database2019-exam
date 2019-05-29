@@ -15,7 +15,7 @@ def city_mentions():
     return onlyfiles
 
 def city_mentions_sql():
-    mypath = 'sql_scripts/generated/mentions'
+    mypath = 'sql_scripts/generated/mentions/'
     onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
     return onlyfiles
 
